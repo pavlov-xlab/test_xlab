@@ -9,6 +9,7 @@ namespace TestXlab
     {
 		public Spawner spawner;
 		public CloudController cloudController;
+		public List<Villager> villagers;
 
 		private void Update()
 		{
@@ -27,6 +28,10 @@ namespace TestXlab
 			if (Input.GetKeyDown(KeyCode.Space))
 			{
 				Debug.Log("Space key down");
+				foreach(var villager in villagers)
+				{
+					villager.ChangeTool();
+				}
 			}
 		}
 	}
