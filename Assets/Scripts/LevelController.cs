@@ -11,21 +11,24 @@ namespace Golf
         public Spawner spawner;
 		public bool isGameOver = false;
 		public float delay = 0.5f;
+		private float m_lastSpawnedTime = 0;
 
 		private void Start()
 		{
-			StartCoroutine(SpawnStoneProc());
+			m_lastSpawnedTime = Time.time;
 		}
 
-		private IEnumerator SpawnStoneProc()
-		{
-			do
-			{
-				yield return new WaitForSeconds(delay);
 
-				spawner.Spawn();
+		private void Update()
+		{
+			if (!isGameOver)
+			{
+				if (Time.time >= m_lastSpawnedTime + delay)
+				{
+					spawner.Spawn();
+					m_lastSpawnedTime = Time.time;
+				}
 			}
-			while (!isGameOver);
 		}
 	}
 
