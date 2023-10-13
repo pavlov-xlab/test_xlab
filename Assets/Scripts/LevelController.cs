@@ -21,6 +21,18 @@ namespace Golf
 
 		private float m_delay = 0.5f;
 
+		private List<GameObject> m_stones = new List<GameObject>(16);
+
+		public void ClearStones()
+		{
+			foreach (var stone in m_stones)
+			{
+				Destroy(stone);
+			}
+
+			m_stones.Clear();
+		}
+
 		private void Awake()
 		{	
 		}
@@ -29,24 +41,16 @@ namespace Golf
 		{
 			m_lastSpawnedTime = Time.time;
 			RefreshDelay();
-
-			StartCoroutine(WaitEvent(OnFinishWaitEvent));
-		}
-
-		private void OnFinishWaitEvent()
-		{
-			Debug.Log("");
 		}
 
 		private void OnEnable()
 		{	
-			GameEvents.onCollisionStones += GameOver;
 			GameEvents.onStickHit += OnStickHit;
+			score = 0;
 		}
 
 		private void OnDisable()
 		{
-			GameEvents.onCollisionStones -= GameOver;
 			GameEvents.onStickHit -= OnStickHit;
 		}
 
@@ -58,17 +62,13 @@ namespace Golf
 			Debug.Log($"score: {score} - hightScore: {hightScore}");
 		}
 
-		private void GameOver()
-		{
-			Debug.Log("!!! GAME OVER !!!");
-			enabled = false;
-		}
-
 		private void Update()
 		{
 			if (Time.time >= m_lastSpawnedTime + m_delay)
 			{
-				spawner.Spawn();
+				var stone = spawner.Spawn();
+				m_stones.Add(stone);
+
 				m_lastSpawnedTime = Time.time;
 
 				RefreshDelay();
