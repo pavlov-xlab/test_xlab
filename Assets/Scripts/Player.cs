@@ -34,12 +34,12 @@ namespace Golf
 				var dir = (helper.position - m_lastPosition).normalized;
 				body.AddForce(dir * power, ForceMode.Impulse);
 
-                if(collider.TryGetComponent(out Stone stone))
+                if(collider.TryGetComponent(out Stone stone) && !stone.isAfect)
                 {
                     stone.isAfect = true;
+                    GameEvents.StickHit();
 				}
             }
         }
     }
-
 }

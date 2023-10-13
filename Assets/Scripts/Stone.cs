@@ -7,9 +7,7 @@ namespace Golf
 
     public class Stone : MonoBehaviour
     {
-		public static System.Action onCollisionStone;
-
-        public bool isAfect = false;
+		public bool isAfect = false;
 
 		private void OnCollisionEnter(Collision collision)
 		{
@@ -17,7 +15,7 @@ namespace Golf
 			{
 				if (!other.isAfect)
 				{
-					onCollisionStone?.Invoke();
+					GameEvents.CollisionStonesInvoke(collision);
 				}
 			}
 		}
