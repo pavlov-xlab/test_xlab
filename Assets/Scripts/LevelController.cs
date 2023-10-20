@@ -20,6 +20,7 @@ namespace Golf
 		public int hightScore = 0;
 
 		private float m_delay = 0.5f;
+		private float m_upperDelay; 
 
 		private List<GameObject> m_stones = new List<GameObject>(16);
 
@@ -47,6 +48,7 @@ namespace Golf
 		{	
 			GameEvents.onStickHit += OnStickHit;
 			score = 0;
+			m_upperDelay = delayMax;
 		}
 
 		private void OnDisable()
@@ -77,8 +79,8 @@ namespace Golf
 
 		public void RefreshDelay()
 		{
-			m_delay = UnityEngine.Random.Range(delayMin, delayMax);
-			delayMax = Mathf.Max(delayMin, delayMax - delayStep);
+			m_delay = UnityEngine.Random.Range(delayMin, m_upperDelay);
+			m_upperDelay = Mathf.Max(delayMin, m_upperDelay - delayStep);
 		}
 
 

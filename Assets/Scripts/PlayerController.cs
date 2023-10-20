@@ -25,6 +25,11 @@ namespace Golf
 			//}
 		}
 
+		private void OnEnable()
+		{
+			player.SetDown(false);
+		}
+
 		public void OnDown()
 		{
 			player.SetDown(true);

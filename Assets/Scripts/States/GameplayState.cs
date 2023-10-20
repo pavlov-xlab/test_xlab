@@ -43,8 +43,15 @@ namespace Golf
 
 			GameEvents.onCollisionStones -= OnGameOver;
 
-			levelController.enabled = false;
-			playerController.enabled = false;
+			if (levelController)
+			{
+				levelController.enabled = false;
+			}
+
+			if (playerController)
+			{
+				playerController.enabled = false;
+			}
 		}
 	}
 }
